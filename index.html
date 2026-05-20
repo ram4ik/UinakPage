@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Transform your sleep with Uinak - AI-powered sleep tracking, personalized insights, and wind-down routines to help you wake up refreshed every morning.">
     <title>Uinak - Transform Your Sleep, Wake Up Refreshed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -30,6 +31,106 @@
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-button {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .language-button:hover {
+            background: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .language-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .language-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            min-width: 220px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .language-menu.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .language-option {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .language-option:first-child {
+            border-radius: 15px 15px 0 0;
+        }
+
+        .language-option:last-child {
+            border-radius: 0 0 15px 15px;
+        }
+
+        .language-option:hover {
+            background: var(--bg-light);
+        }
+
+        .language-option.selected {
+            background: rgba(102, 126, 234, 0.1);
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .flag-emoji {
+            font-size: 1.5rem;
         }
 
         .container {
@@ -310,16 +411,94 @@
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <div class="language-dropdown">
+            <button class="language-button" onclick="toggleLanguageMenu()">
+                <span class="flag-emoji" id="current-flag">🌐</span>
+                <span id="current-language">English</span>
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+            <div class="language-menu" id="language-menu">
+                <div class="language-option" onclick="changeLanguage('en')">
+                    <span class="flag-emoji">🇬🇧</span>
+                    <span>English</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('fi')">
+                    <span class="flag-emoji">🇫🇮</span>
+                    <span>Suomi</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('sv')">
+                    <span class="flag-emoji">🇸🇪</span>
+                    <span>Svenska</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('no')">
+                    <span class="flag-emoji">🇳🇴</span>
+                    <span>Norsk</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('de')">
+                    <span class="flag-emoji">🇩🇪</span>
+                    <span>Deutsch</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('pl')">
+                    <span class="flag-emoji">🇵🇱</span>
+                    <span>Polski</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('fr')">
+                    <span class="flag-emoji">🇫🇷</span>
+                    <span>Français</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('it')">
+                    <span class="flag-emoji">🇮🇹</span>
+                    <span>Italiano</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('es')">
+                    <span class="flag-emoji">🇪🇸</span>
+                    <span>Español</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('pt')">
+                    <span class="flag-emoji">🇵🇹</span>
+                    <span>Português</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('br')">
+                    <span class="flag-emoji">🇧🇷</span>
+                    <span>Português (BR)</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('zh')">
+                    <span class="flag-emoji">🇨🇳</span>
+                    <span>中文</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('ja')">
+                    <span class="flag-emoji">🇯🇵</span>
+                    <span>日本語</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('ko')">
+                    <span class="flag-emoji">🇰🇷</span>
+                    <span>한국어</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('tr')">
+                    <span class="flag-emoji">🇹🇷</span>
+                    <span>Türkçe</span>
+                </div>
+                <div class="language-option" onclick="changeLanguage('ar')">
+                    <span class="flag-emoji">🇸🇦</span>
+                    <span>العربية</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <div class="logo">🌙 Uinak</div>
-            <h1>Transform Your Sleep<br>Wake Up Refreshed</h1>
-            <p class="subtitle">AI-powered sleep tracking and personalized insights to help you sleep better every night</p>
+            <h1 data-i18n="hero.title">Transform Your Sleep<br>Wake Up Refreshed</h1>
+            <p class="subtitle" data-i18n="hero.subtitle">AI-powered sleep tracking and personalized insights to help you sleep better every night</p>
             <a href="https://apps.apple.com/us/app/uinak/id6766074675" class="cta-button">
                 <svg class="apple-icon" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                 </svg>
-                Download on App Store
+                <span data-i18n="hero.cta">Download on App Store</span>
             </a>
             <div class="hero-image">
                 <img src="1.webp" alt="Uinak App Screenshot" class="phone-mockup">
@@ -329,37 +508,37 @@
 
     <section class="features">
         <div class="container">
-            <h2 class="section-title">Everything You Need for Better Sleep</h2>
+            <h2 class="section-title" data-i18n="features.title">Everything You Need for Better Sleep</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🎯</div>
-                    <h3 class="feature-title">Smart Sleep Tracking</h3>
-                    <p class="feature-description">Automatically track your sleep quality, duration, and stages throughout the night. Get a comprehensive sleep score each morning.</p>
+                    <h3 class="feature-title" data-i18n="features.tracking.title">Smart Sleep Tracking</h3>
+                    <p class="feature-description" data-i18n="features.tracking.description">Automatically track your sleep quality, duration, and stages throughout the night. Get a comprehensive sleep score each morning.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🤖</div>
-                    <h3 class="feature-title">AI-Powered Insights</h3>
-                    <p class="feature-description">Receive personalized recommendations based on your sleep patterns. Our AI analyzes your data to help you improve your sleep quality.</p>
+                    <h3 class="feature-title" data-i18n="features.ai.title">AI-Powered Insights</h3>
+                    <p class="feature-description" data-i18n="features.ai.description">Receive personalized recommendations based on your sleep patterns. Our AI analyzes your data to help you improve your sleep quality.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🌅</div>
-                    <h3 class="feature-title">Wind-Down Routines</h3>
-                    <p class="feature-description">Prepare your mind and body for restful sleep with guided relaxation activities, meditation, and calming exercises.</p>
+                    <h3 class="feature-title" data-i18n="features.winddown.title">Wind-Down Routines</h3>
+                    <p class="feature-description" data-i18n="features.winddown.description">Prepare your mind and body for restful sleep with guided relaxation activities, meditation, and calming exercises.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
-                    <h3 class="feature-title">Detailed Analytics</h3>
-                    <p class="feature-description">Track your sleep trends over time with beautiful charts and insights. Understand your sleep stages, efficiency, and patterns.</p>
+                    <h3 class="feature-title" data-i18n="features.analytics.title">Detailed Analytics</h3>
+                    <p class="feature-description" data-i18n="features.analytics.description">Track your sleep trends over time with beautiful charts and insights. Understand your sleep stages, efficiency, and patterns.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">⚠️</div>
-                    <h3 class="feature-title">Sleep Debt Monitor</h3>
-                    <p class="feature-description">Stay aware of your sleep deficit and get recommendations to recover. Never let sleep debt affect your daily performance.</p>
+                    <h3 class="feature-title" data-i18n="features.debt.title">Sleep Debt Monitor</h3>
+                    <p class="feature-description" data-i18n="features.debt.description">Stay aware of your sleep deficit and get recommendations to recover. Never let sleep debt affect your daily performance.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🔊</div>
-                    <h3 class="feature-title">Sound Event Detection</h3>
-                    <p class="feature-description">Monitor snoring, talking, and environmental noise that might be disrupting your sleep quality.</p>
+                    <h3 class="feature-title" data-i18n="features.sound.title">Sound Event Detection</h3>
+                    <p class="feature-description" data-i18n="features.sound.description">Monitor snoring, talking, and environmental noise that might be disrupting your sleep quality.</p>
                 </div>
             </div>
         </div>
@@ -367,7 +546,7 @@
 
     <section class="screenshots">
         <div class="container">
-            <h2 class="section-title">Experience Uinak</h2>
+            <h2 class="section-title" data-i18n="screenshots.title">Experience Uinak</h2>
             <div class="screenshots-carousel">
                 <div class="screenshot-item">
                     <img src="1.webp" alt="Uinak Home Screen">
@@ -405,23 +584,23 @@
 
     <section class="benefits">
         <div class="container">
-            <h2 class="section-title">Why Better Sleep Matters</h2>
+            <h2 class="section-title" data-i18n="benefits.title">Why Better Sleep Matters</h2>
             <div class="benefits-grid">
                 <div class="benefit-item">
                     <div class="benefit-number">💪</div>
-                    <p class="benefit-text">Better physical health and immune system</p>
+                    <p class="benefit-text" data-i18n="benefits.health">Better physical health and immune system</p>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-number">🧠</div>
-                    <p class="benefit-text">Improved memory and cognitive function</p>
+                    <p class="benefit-text" data-i18n="benefits.memory">Improved memory and cognitive function</p>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-number">😊</div>
-                    <p class="benefit-text">Enhanced mood and emotional wellbeing</p>
+                    <p class="benefit-text" data-i18n="benefits.mood">Enhanced mood and emotional wellbeing</p>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-number">⚡</div>
-                    <p class="benefit-text">Increased energy and productivity</p>
+                    <p class="benefit-text" data-i18n="benefits.energy">Increased energy and productivity</p>
                 </div>
             </div>
         </div>
@@ -430,13 +609,13 @@
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2 class="cta-title">Ready to Transform Your Sleep?</h2>
-                <p class="cta-description">Join thousands of users who have already improved their sleep quality with Uinak. Start your journey to better sleep tonight.</p>
+                <h2 class="cta-title" data-i18n="cta.title">Ready to Transform Your Sleep?</h2>
+                <p class="cta-description" data-i18n="cta.description">Join thousands of users who have already improved their sleep quality with Uinak. Start your journey to better sleep tonight.</p>
                 <a href="https://apps.apple.com/us/app/uinak/id6766074675" class="cta-button">
                     <svg class="apple-icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                     </svg>
-                    Download Free
+                    <span data-i18n="cta.button">Download Free</span>
                 </a>
             </div>
         </div>
@@ -444,8 +623,939 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Uinak. All rights reserved. Transform your sleep, transform your life.</p>
+            <p data-i18n="footer.copyright">&copy; 2026 Uinak. All rights reserved. Transform your sleep, transform your life.</p>
         </div>
     </footer>
+
+    <script>
+        const translations = {
+            en: {
+                name: 'English',
+                flag: '🇬🇧',
+                hero: {
+                    title: 'Transform Your Sleep<br>Wake Up Refreshed',
+                    subtitle: 'AI-powered sleep tracking and personalized insights to help you sleep better every night',
+                    cta: 'Download on App Store'
+                },
+                features: {
+                    title: 'Everything You Need for Better Sleep',
+                    tracking: {
+                        title: 'Smart Sleep Tracking',
+                        description: 'Automatically track your sleep quality, duration, and stages throughout the night. Get a comprehensive sleep score each morning.'
+                    },
+                    ai: {
+                        title: 'AI-Powered Insights',
+                        description: 'Receive personalized recommendations based on your sleep patterns. Our AI analyzes your data to help you improve your sleep quality.'
+                    },
+                    winddown: {
+                        title: 'Wind-Down Routines',
+                        description: 'Prepare your mind and body for restful sleep with guided relaxation activities, meditation, and calming exercises.'
+                    },
+                    analytics: {
+                        title: 'Detailed Analytics',
+                        description: 'Track your sleep trends over time with beautiful charts and insights. Understand your sleep stages, efficiency, and patterns.'
+                    },
+                    debt: {
+                        title: 'Sleep Debt Monitor',
+                        description: 'Stay aware of your sleep deficit and get recommendations to recover. Never let sleep debt affect your daily performance.'
+                    },
+                    sound: {
+                        title: 'Sound Event Detection',
+                        description: 'Monitor snoring, talking, and environmental noise that might be disrupting your sleep quality.'
+                    }
+                },
+                screenshots: {
+                    title: 'Experience Uinak'
+                },
+                benefits: {
+                    title: 'Why Better Sleep Matters',
+                    health: 'Better physical health and immune system',
+                    memory: 'Improved memory and cognitive function',
+                    mood: 'Enhanced mood and emotional wellbeing',
+                    energy: 'Increased energy and productivity'
+                },
+                cta: {
+                    title: 'Ready to Transform Your Sleep?',
+                    description: 'Join thousands of users who have already improved their sleep quality with Uinak. Start your journey to better sleep tonight.',
+                    button: 'Download Free'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. All rights reserved. Transform your sleep, transform your life.'
+                }
+            },
+            fi: {
+                name: 'Suomi',
+                flag: '🇫🇮',
+                hero: {
+                    title: 'Muuta Unesi<br>Herää Virkeänä',
+                    subtitle: 'Tekoälyn ohjaama unenseuranta ja henkilökohtaiset oivallukset auttavat sinua nukkumaan paremmin joka yö',
+                    cta: 'Lataa App Storesta'
+                },
+                features: {
+                    title: 'Kaikki Mitä Tarvitset Parempaan Uneen',
+                    tracking: {
+                        title: 'Älykäs Unenseuranta',
+                        description: 'Seuraa automaattisesti unen laatua, kestoa ja vaiheita koko yön ajan. Saat kattavan unipisteet joka aamu.'
+                    },
+                    ai: {
+                        title: 'Tekoälypohjaiset Oivallukset',
+                        description: 'Saat henkilökohtaisia suosituksia unimalliesi perusteella. Tekoälymme analysoi tietojasi auttaakseen parantamaan unenlaatua.'
+                    },
+                    winddown: {
+                        title: 'Rauhoittumisrutiinit',
+                        description: 'Valmistele mielesi ja kehosi levolliseen uneen ohjattujen rentoutumisharjoitusten, meditaation ja rauhoittavien harjoitusten avulla.'
+                    },
+                    analytics: {
+                        title: 'Yksityiskohtaiset Analyysit',
+                        description: 'Seuraa unitrendejäsi ajan mittaan kauniilla kaavioilla ja oivalluksilla. Ymmärrä univaiheesi, tehokkuutesi ja mallisi.'
+                    },
+                    debt: {
+                        title: 'Univelan Seuranta',
+                        description: 'Pysy tietoisena univajeestaasi ja saa suosituksia palautumiseen. Älä koskaan anna univelan vaikuttaa päivittäiseen suoritukseesi.'
+                    },
+                    sound: {
+                        title: 'Äänentunnistus',
+                        description: 'Seuraa kuorsausta, puhumista ja ympäristön melua, joka saattaa häiritä unenlaatua.'
+                    }
+                },
+                screenshots: {
+                    title: 'Koe Uinak'
+                },
+                benefits: {
+                    title: 'Miksi Parempi Uni On Tärkeää',
+                    health: 'Parempi fyysinen terveys ja immuunijärjestelmä',
+                    memory: 'Parantunut muisti ja kognitiivinen toiminta',
+                    mood: 'Parempi mieliala ja emotionaalinen hyvinvointi',
+                    energy: 'Lisää energiaa ja tuottavuutta'
+                },
+                cta: {
+                    title: 'Valmis Muuttamaan Unesi?',
+                    description: 'Liity tuhansiin käyttäjiin, jotka ovat jo parantaneet unenlaatua Uinakin avulla. Aloita matkasi parempaan uneen tänä iltana.',
+                    button: 'Lataa Ilmaiseksi'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Kaikki oikeudet pidätetään. Muuta unesi, muuta elämäsi.'
+                }
+            },
+            sv: {
+                name: 'Svenska',
+                flag: '🇸🇪',
+                hero: {
+                    title: 'Förvandla Din Sömn<br>Vakna Uppfriskad',
+                    subtitle: 'AI-driven sömnspårning och personliga insikter för att hjälpa dig sova bättre varje natt',
+                    cta: 'Ladda ner på App Store'
+                },
+                features: {
+                    title: 'Allt Du Behöver för Bättre Sömn',
+                    tracking: {
+                        title: 'Smart Sömnspårning',
+                        description: 'Spåra automatiskt din sömnkvalitet, varaktighet och stadier under hela natten. Få ett omfattande sömnbetyg varje morgon.'
+                    },
+                    ai: {
+                        title: 'AI-Drivna Insikter',
+                        description: 'Ta emot personliga rekommendationer baserade på dina sömnmönster. Vår AI analyserar din data för att hjälpa dig förbättra din sömnkvalitet.'
+                    },
+                    winddown: {
+                        title: 'Avslappningsrutiner',
+                        description: 'Förbered ditt sinne och din kropp för vilsam sömn med guidade avslappningsaktiviteter, meditation och lugnande övningar.'
+                    },
+                    analytics: {
+                        title: 'Detaljerad Analys',
+                        description: 'Spåra dina sömntrender över tid med vackra diagram och insikter. Förstå dina sömnstadier, effektivitet och mönster.'
+                    },
+                    debt: {
+                        title: 'Sömnunderskott Monitor',
+                        description: 'Håll koll på ditt sömnunderskott och få rekommendationer för återhämtning. Låt aldrig sömnunderskott påverka din dagliga prestation.'
+                    },
+                    sound: {
+                        title: 'Ljudhändelsedetektion',
+                        description: 'Övervaka snarkning, tal och miljöbuller som kan störa din sömnkvalitet.'
+                    }
+                },
+                screenshots: {
+                    title: 'Upplev Uinak'
+                },
+                benefits: {
+                    title: 'Varför Bättre Sömn Är Viktigt',
+                    health: 'Bättre fysisk hälsa och immunförsvar',
+                    memory: 'Förbättrat minne och kognitiv funktion',
+                    mood: 'Förbättrat humör och emotionellt välbefinnande',
+                    energy: 'Ökad energi och produktivitet'
+                },
+                cta: {
+                    title: 'Redo Att Förvandla Din Sömn?',
+                    description: 'Gå med tusentals användare som redan har förbättrat sin sömnkvalitet med Uinak. Börja din resa mot bättre sömn ikväll.',
+                    button: 'Ladda Ner Gratis'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Alla rättigheter förbehållna. Förvandla din sömn, förvandla ditt liv.'
+                }
+            },
+            no: {
+                name: 'Norsk',
+                flag: '🇳🇴',
+                hero: {
+                    title: 'Forvandle Søvnen Din<br>Våkn Opplagt',
+                    subtitle: 'AI-drevet søvnsporing og personlige innsikter for å hjelpe deg å sove bedre hver natt',
+                    cta: 'Last ned på App Store'
+                },
+                features: {
+                    title: 'Alt Du Trenger for Bedre Søvn',
+                    tracking: {
+                        title: 'Smart Søvnsporing',
+                        description: 'Spor automatisk søvnkvaliteten, varigheten og stadiene dine gjennom natten. Få en omfattende søvnpoengsum hver morgen.'
+                    },
+                    ai: {
+                        title: 'AI-Drevne Innsikter',
+                        description: 'Motta personlige anbefalinger basert på søvnmønstrene dine. Vår AI analyserer dataene dine for å hjelpe deg å forbedre søvnkvaliteten.'
+                    },
+                    winddown: {
+                        title: 'Avslappingsrutiner',
+                        description: 'Forbered sinnet og kroppen din for hvile med guidede avslapningsaktiviteter, meditasjon og beroligende øvelser.'
+                    },
+                    analytics: {
+                        title: 'Detaljert Analyse',
+                        description: 'Spor søvntrendene dine over tid med vakre diagrammer og innsikter. Forstå søvnstadiene, effektiviteten og mønstrene dine.'
+                    },
+                    debt: {
+                        title: 'Søvngjeld Monitor',
+                        description: 'Hold deg oppdatert på søvnunderskuddet ditt og få anbefalinger for å komme deg. La aldri søvngjeld påvirke din daglige ytelse.'
+                    },
+                    sound: {
+                        title: 'Lydhendelsesdeteksjon',
+                        description: 'Overvåk snorking, snakking og miljøstøy som kan forstyrre søvnkvaliteten din.'
+                    }
+                },
+                screenshots: {
+                    title: 'Opplev Uinak'
+                },
+                benefits: {
+                    title: 'Hvorfor Bedre Søvn Er Viktig',
+                    health: 'Bedre fysisk helse og immunsystem',
+                    memory: 'Forbedret hukommelse og kognitiv funksjon',
+                    mood: 'Forbedret humør og emosjonell velvære',
+                    energy: 'Økt energi og produktivitet'
+                },
+                cta: {
+                    title: 'Klar Til Å Forvandle Søvnen Din?',
+                    description: 'Bli med tusenvis av brukere som allerede har forbedret søvnkvaliteten sin med Uinak. Start reisen din til bedre søvn i kveld.',
+                    button: 'Last Ned Gratis'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Alle rettigheter reservert. Forvandle søvnen din, forvandle livet ditt.'
+                }
+            },
+            de: {
+                name: 'Deutsch',
+                flag: '🇩🇪',
+                hero: {
+                    title: 'Verwandeln Sie Ihren Schlaf<br>Wachen Sie Erfrischt Auf',
+                    subtitle: 'KI-gestützte Schlafüberwachung und personalisierte Erkenntnisse, damit Sie jede Nacht besser schlafen',
+                    cta: 'Im App Store herunterladen'
+                },
+                features: {
+                    title: 'Alles, Was Sie Für Besseren Schlaf Brauchen',
+                    tracking: {
+                        title: 'Intelligente Schlafüberwachung',
+                        description: 'Verfolgen Sie automatisch Ihre Schlafqualität, -dauer und -phasen während der ganzen Nacht. Erhalten Sie jeden Morgen eine umfassende Schlafbewertung.'
+                    },
+                    ai: {
+                        title: 'KI-Gestützte Erkenntnisse',
+                        description: 'Erhalten Sie personalisierte Empfehlungen basierend auf Ihren Schlafmustern. Unsere KI analysiert Ihre Daten, um Ihre Schlafqualität zu verbessern.'
+                    },
+                    winddown: {
+                        title: 'Entspannungsroutinen',
+                        description: 'Bereiten Sie Ihren Geist und Körper auf erholsamen Schlaf vor mit geführten Entspannungsaktivitäten, Meditation und beruhigenden Übungen.'
+                    },
+                    analytics: {
+                        title: 'Detaillierte Analysen',
+                        description: 'Verfolgen Sie Ihre Schlaftrends im Laufe der Zeit mit schönen Diagrammen und Erkenntnissen. Verstehen Sie Ihre Schlafphasen, Effizienz und Muster.'
+                    },
+                    debt: {
+                        title: 'Schlafschulden-Monitor',
+                        description: 'Bleiben Sie sich Ihres Schlafdefizits bewusst und erhalten Sie Empfehlungen zur Erholung. Lassen Sie Schlafschulden niemals Ihre tägliche Leistung beeinträchtigen.'
+                    },
+                    sound: {
+                        title: 'Geräuscherkennung',
+                        description: 'Überwachen Sie Schnarchen, Sprechen und Umgebungsgeräusche, die Ihre Schlafqualität stören könnten.'
+                    }
+                },
+                screenshots: {
+                    title: 'Erleben Sie Uinak'
+                },
+                benefits: {
+                    title: 'Warum Besserer Schlaf Wichtig Ist',
+                    health: 'Bessere körperliche Gesundheit und Immunsystem',
+                    memory: 'Verbessertes Gedächtnis und kognitive Funktion',
+                    mood: 'Verbesserte Stimmung und emotionales Wohlbefinden',
+                    energy: 'Erhöhte Energie und Produktivität'
+                },
+                cta: {
+                    title: 'Bereit, Ihren Schlaf Zu Verwandeln?',
+                    description: 'Schließen Sie sich Tausenden von Benutzern an, die ihre Schlafqualität mit Uinak bereits verbessert haben. Beginnen Sie heute Abend Ihre Reise zu besserem Schlaf.',
+                    button: 'Kostenlos Herunterladen'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Alle Rechte vorbehalten. Verwandeln Sie Ihren Schlaf, verwandeln Sie Ihr Leben.'
+                }
+            },
+            pl: {
+                name: 'Polski',
+                flag: '🇵🇱',
+                hero: {
+                    title: 'Zmień Swój Sen<br>Obudź Się Wypoczęty',
+                    subtitle: 'Śledzenie snu oparte na AI i spersonalizowane spostrzeżenia, które pomogą Ci lepiej spać każdej nocy',
+                    cta: 'Pobierz z App Store'
+                },
+                features: {
+                    title: 'Wszystko, Czego Potrzebujesz Do Lepszego Snu',
+                    tracking: {
+                        title: 'Inteligentne Śledzenie Snu',
+                        description: 'Automatycznie śledź jakość snu, jego czas trwania i fazy przez całą noc. Otrzymuj kompleksowy wynik snu każdego ranka.'
+                    },
+                    ai: {
+                        title: 'Spostrzeżenia Oparte Na AI',
+                        description: 'Otrzymuj spersonalizowane rekomendacje oparte na Twoich wzorcach snu. Nasza AI analizuje Twoje dane, aby pomóc Ci poprawić jakość snu.'
+                    },
+                    winddown: {
+                        title: 'Rutyny Relaksacyjne',
+                        description: 'Przygotuj swój umysł i ciało do spokojnego snu dzięki prowadzonym aktywnościom relaksacyjnym, medytacji i uspokajającym ćwiczeniom.'
+                    },
+                    analytics: {
+                        title: 'Szczegółowe Analizy',
+                        description: 'Śledź trendy swojego snu w czasie za pomocą pięknych wykresów i spostrzeżeń. Zrozum swoje fazy snu, efektywność i wzorce.'
+                    },
+                    debt: {
+                        title: 'Monitor Długu Snu',
+                        description: 'Bądź świadomy swojego deficytu snu i otrzymuj rekomendacje dotyczące regeneracji. Nigdy nie pozwól, aby dług snu wpływał na Twoją codzienną wydajność.'
+                    },
+                    sound: {
+                        title: 'Wykrywanie Zdarzeń Dźwiękowych',
+                        description: 'Monitoruj chrapanie, mówienie i hałas otoczenia, który może zakłócać jakość Twojego snu.'
+                    }
+                },
+                screenshots: {
+                    title: 'Poznaj Uinak'
+                },
+                benefits: {
+                    title: 'Dlaczego Lepszy Sen Jest Ważny',
+                    health: 'Lepsza kondycja fizyczna i układ odpornościowy',
+                    memory: 'Ulepszona pamięć i funkcje kognitywne',
+                    mood: 'Lepszy nastrój i dobre samopoczucie emocjonalne',
+                    energy: 'Zwiększona energia i produktywność'
+                },
+                cta: {
+                    title: 'Gotowy Zmienić Swój Sen?',
+                    description: 'Dołącz do tysięcy użytkowników, którzy już poprawili jakość swojego snu dzięki Uinak. Rozpocznij swoją podróż do lepszego snu dziś wieczorem.',
+                    button: 'Pobierz Za Darmo'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Wszelkie prawa zastrzeżone. Zmień swój sen, zmień swoje życie.'
+                }
+            },
+            fr: {
+                name: 'Français',
+                flag: '🇫🇷',
+                hero: {
+                    title: 'Transformez Votre Sommeil<br>Réveillez-vous Rafraîchi',
+                    subtitle: 'Suivi du sommeil alimenté par l\'IA et informations personnalisées pour vous aider à mieux dormir chaque nuit',
+                    cta: 'Télécharger sur l\'App Store'
+                },
+                features: {
+                    title: 'Tout Ce Dont Vous Avez Besoin Pour Mieux Dormir',
+                    tracking: {
+                        title: 'Suivi Intelligent du Sommeil',
+                        description: 'Suivez automatiquement la qualité, la durée et les phases de votre sommeil tout au long de la nuit. Obtenez un score de sommeil complet chaque matin.'
+                    },
+                    ai: {
+                        title: 'Informations Alimentées par l\'IA',
+                        description: 'Recevez des recommandations personnalisées basées sur vos habitudes de sommeil. Notre IA analyse vos données pour vous aider à améliorer la qualité de votre sommeil.'
+                    },
+                    winddown: {
+                        title: 'Routines de Détente',
+                        description: 'Préparez votre esprit et votre corps à un sommeil réparateur avec des activités de relaxation guidées, de la méditation et des exercices apaisants.'
+                    },
+                    analytics: {
+                        title: 'Analyses Détaillées',
+                        description: 'Suivez les tendances de votre sommeil au fil du temps avec de beaux graphiques et des informations. Comprenez vos phases de sommeil, votre efficacité et vos habitudes.'
+                    },
+                    debt: {
+                        title: 'Moniteur de Dette de Sommeil',
+                        description: 'Restez conscient de votre déficit de sommeil et obtenez des recommandations pour récupérer. Ne laissez jamais la dette de sommeil affecter vos performances quotidiennes.'
+                    },
+                    sound: {
+                        title: 'Détection des Événements Sonores',
+                        description: 'Surveillez les ronflements, les paroles et le bruit ambiant qui pourraient perturber la qualité de votre sommeil.'
+                    }
+                },
+                screenshots: {
+                    title: 'Découvrez Uinak'
+                },
+                benefits: {
+                    title: 'Pourquoi Un Meilleur Sommeil Est Important',
+                    health: 'Meilleure santé physique et système immunitaire',
+                    memory: 'Amélioration de la mémoire et des fonctions cognitives',
+                    mood: 'Amélioration de l\'humeur et du bien-être émotionnel',
+                    energy: 'Augmentation de l\'énergie et de la productivité'
+                },
+                cta: {
+                    title: 'Prêt À Transformer Votre Sommeil?',
+                    description: 'Rejoignez des milliers d\'utilisateurs qui ont déjà amélioré la qualité de leur sommeil avec Uinak. Commencez votre voyage vers un meilleur sommeil ce soir.',
+                    button: 'Télécharger Gratuitement'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Tous droits réservés. Transformez votre sommeil, transformez votre vie.'
+                }
+            },
+            it: {
+                name: 'Italiano',
+                flag: '🇮🇹',
+                hero: {
+                    title: 'Trasforma Il Tuo Sonno<br>Svegliati Riposato',
+                    subtitle: 'Monitoraggio del sonno basato sull\'IA e approfondimenti personalizzati per aiutarti a dormire meglio ogni notte',
+                    cta: 'Scarica su App Store'
+                },
+                features: {
+                    title: 'Tutto Ciò Di Cui Hai Bisogno Per Dormire Meglio',
+                    tracking: {
+                        title: 'Monitoraggio Intelligente del Sonno',
+                        description: 'Monitora automaticamente la qualità, la durata e le fasi del tuo sonno durante tutta la notte. Ottieni un punteggio completo del sonno ogni mattina.'
+                    },
+                    ai: {
+                        title: 'Approfondimenti Basati sull\'IA',
+                        description: 'Ricevi raccomandazioni personalizzate basate sui tuoi schemi di sonno. La nostra IA analizza i tuoi dati per aiutarti a migliorare la qualità del sonno.'
+                    },
+                    winddown: {
+                        title: 'Routine di Rilassamento',
+                        description: 'Prepara la tua mente e il tuo corpo per un sonno riposante con attività di rilassamento guidate, meditazione ed esercizi calmanti.'
+                    },
+                    analytics: {
+                        title: 'Analisi Dettagliate',
+                        description: 'Monitora le tendenze del tuo sonno nel tempo con bellissimi grafici e approfondimenti. Comprendi le tue fasi del sonno, l\'efficienza e i modelli.'
+                    },
+                    debt: {
+                        title: 'Monitor del Debito di Sonno',
+                        description: 'Rimani consapevole del tuo deficit di sonno e ottieni raccomandazioni per recuperare. Non lasciare mai che il debito di sonno influisca sulle tue prestazioni quotidiane.'
+                    },
+                    sound: {
+                        title: 'Rilevamento Eventi Sonori',
+                        description: 'Monitora russamento, parlare e rumore ambientale che potrebbero disturbare la qualità del tuo sonno.'
+                    }
+                },
+                screenshots: {
+                    title: 'Scopri Uinak'
+                },
+                benefits: {
+                    title: 'Perché Un Sonno Migliore È Importante',
+                    health: 'Migliore salute fisica e sistema immunitario',
+                    memory: 'Miglioramento della memoria e delle funzioni cognitive',
+                    mood: 'Miglioramento dell\'umore e del benessere emotivo',
+                    energy: 'Aumento di energia e produttività'
+                },
+                cta: {
+                    title: 'Pronto A Trasformare Il Tuo Sonno?',
+                    description: 'Unisciti a migliaia di utenti che hanno già migliorato la qualità del loro sonno con Uinak. Inizia il tuo viaggio verso un sonno migliore stasera.',
+                    button: 'Scarica Gratis'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Tutti i diritti riservati. Trasforma il tuo sonno, trasforma la tua vita.'
+                }
+            },
+            es: {
+                name: 'Español',
+                flag: '🇪🇸',
+                hero: {
+                    title: 'Transforma Tu Sueño<br>Despierta Renovado',
+                    subtitle: 'Seguimiento del sueño impulsado por IA y conocimientos personalizados para ayudarte a dormir mejor cada noche',
+                    cta: 'Descargar en App Store'
+                },
+                features: {
+                    title: 'Todo Lo Que Necesitas Para Dormir Mejor',
+                    tracking: {
+                        title: 'Seguimiento Inteligente del Sueño',
+                        description: 'Rastrea automáticamente la calidad, duración y etapas de tu sueño durante toda la noche. Obtén una puntuación completa del sueño cada mañana.'
+                    },
+                    ai: {
+                        title: 'Conocimientos Impulsados por IA',
+                        description: 'Recibe recomendaciones personalizadas basadas en tus patrones de sueño. Nuestra IA analiza tus datos para ayudarte a mejorar la calidad de tu sueño.'
+                    },
+                    winddown: {
+                        title: 'Rutinas de Relajación',
+                        description: 'Prepara tu mente y cuerpo para un sueño reparador con actividades de relajación guiadas, meditación y ejercicios calmantes.'
+                    },
+                    analytics: {
+                        title: 'Análisis Detallados',
+                        description: 'Rastrea las tendencias de tu sueño a lo largo del tiempo con hermosos gráficos y conocimientos. Comprende tus etapas de sueño, eficiencia y patrones.'
+                    },
+                    debt: {
+                        title: 'Monitor de Deuda de Sueño',
+                        description: 'Mantente consciente de tu déficit de sueño y obtén recomendaciones para recuperarte. Nunca dejes que la deuda de sueño afecte tu rendimiento diario.'
+                    },
+                    sound: {
+                        title: 'Detección de Eventos Sonoros',
+                        description: 'Monitorea ronquidos, habla y ruido ambiental que puedan estar interrumpiendo la calidad de tu sueño.'
+                    }
+                },
+                screenshots: {
+                    title: 'Experimenta Uinak'
+                },
+                benefits: {
+                    title: 'Por Qué Importa Dormir Mejor',
+                    health: 'Mejor salud física y sistema inmunológico',
+                    memory: 'Mejora de la memoria y función cognitiva',
+                    mood: 'Mejora del estado de ánimo y bienestar emocional',
+                    energy: 'Aumento de energía y productividad'
+                },
+                cta: {
+                    title: '¿Listo Para Transformar Tu Sueño?',
+                    description: 'Únete a miles de usuarios que ya han mejorado la calidad de su sueño con Uinak. Comienza tu viaje hacia un mejor sueño esta noche.',
+                    button: 'Descargar Gratis'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Todos los derechos reservados. Transforma tu sueño, transforma tu vida.'
+                }
+            },
+            pt: {
+                name: 'Português',
+                flag: '🇵🇹',
+                hero: {
+                    title: 'Transforme O Seu Sono<br>Acorde Renovado',
+                    subtitle: 'Rastreamento de sono alimentado por IA e insights personalizados para ajudá-lo a dormir melhor todas as noites',
+                    cta: 'Descarregar na App Store'
+                },
+                features: {
+                    title: 'Tudo O Que Precisa Para Dormir Melhor',
+                    tracking: {
+                        title: 'Rastreamento Inteligente do Sono',
+                        description: 'Rastreie automaticamente a qualidade, duração e fases do seu sono durante toda a noite. Obtenha uma pontuação completa do sono todas as manhãs.'
+                    },
+                    ai: {
+                        title: 'Insights Alimentados por IA',
+                        description: 'Receba recomendações personalizadas com base nos seus padrões de sono. A nossa IA analisa os seus dados para ajudá-lo a melhorar a qualidade do sono.'
+                    },
+                    winddown: {
+                        title: 'Rotinas de Relaxamento',
+                        description: 'Prepare a sua mente e corpo para um sono reparador com atividades de relaxamento guiadas, meditação e exercícios calmantes.'
+                    },
+                    analytics: {
+                        title: 'Análises Detalhadas',
+                        description: 'Rastreie as tendências do seu sono ao longo do tempo com gráficos bonitos e insights. Compreenda as suas fases de sono, eficiência e padrões.'
+                    },
+                    debt: {
+                        title: 'Monitor de Dívida de Sono',
+                        description: 'Mantenha-se ciente do seu déficit de sono e obtenha recomendações para recuperar. Nunca deixe a dívida de sono afetar o seu desempenho diário.'
+                    },
+                    sound: {
+                        title: 'Deteção de Eventos Sonoros',
+                        description: 'Monitorize roncos, fala e ruído ambiental que possam estar a perturbar a qualidade do seu sono.'
+                    }
+                },
+                screenshots: {
+                    title: 'Experimente Uinak'
+                },
+                benefits: {
+                    title: 'Por Que Dormir Melhor É Importante',
+                    health: 'Melhor saúde física e sistema imunológico',
+                    memory: 'Melhoria da memória e função cognitiva',
+                    mood: 'Melhoria do humor e bem-estar emocional',
+                    energy: 'Aumento de energia e produtividade'
+                },
+                cta: {
+                    title: 'Pronto Para Transformar O Seu Sono?',
+                    description: 'Junte-se a milhares de utilizadores que já melhoraram a qualidade do seu sono com Uinak. Comece a sua jornada para um sono melhor esta noite.',
+                    button: 'Descarregar Grátis'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Todos os direitos reservados. Transforme o seu sono, transforme a sua vida.'
+                }
+            },
+            br: {
+                name: 'Português (BR)',
+                flag: '🇧🇷',
+                hero: {
+                    title: 'Transforme Seu Sono<br>Acorde Renovado',
+                    subtitle: 'Rastreamento de sono alimentado por IA e insights personalizados para ajudá-lo a dormir melhor todas as noites',
+                    cta: 'Baixar na App Store'
+                },
+                features: {
+                    title: 'Tudo O Que Você Precisa Para Dormir Melhor',
+                    tracking: {
+                        title: 'Rastreamento Inteligente do Sono',
+                        description: 'Rastreie automaticamente a qualidade, duração e fases do seu sono durante toda a noite. Obtenha uma pontuação completa do sono todas as manhãs.'
+                    },
+                    ai: {
+                        title: 'Insights Alimentados por IA',
+                        description: 'Receba recomendações personalizadas com base nos seus padrões de sono. Nossa IA analisa seus dados para ajudá-lo a melhorar a qualidade do sono.'
+                    },
+                    winddown: {
+                        title: 'Rotinas de Relaxamento',
+                        description: 'Prepare sua mente e corpo para um sono reparador com atividades de relaxamento guiadas, meditação e exercícios calmantes.'
+                    },
+                    analytics: {
+                        title: 'Análises Detalhadas',
+                        description: 'Rastreie as tendências do seu sono ao longo do tempo com gráficos bonitos e insights. Compreenda suas fases de sono, eficiência e padrões.'
+                    },
+                    debt: {
+                        title: 'Monitor de Dívida de Sono',
+                        description: 'Mantenha-se ciente do seu déficit de sono e obtenha recomendações para recuperar. Nunca deixe a dívida de sono afetar seu desempenho diário.'
+                    },
+                    sound: {
+                        title: 'Detecção de Eventos Sonoros',
+                        description: 'Monitore roncos, fala e ruído ambiental que possam estar perturbando a qualidade do seu sono.'
+                    }
+                },
+                screenshots: {
+                    title: 'Experimente Uinak'
+                },
+                benefits: {
+                    title: 'Por Que Dormir Melhor É Importante',
+                    health: 'Melhor saúde física e sistema imunológico',
+                    memory: 'Melhoria da memória e função cognitiva',
+                    mood: 'Melhoria do humor e bem-estar emocional',
+                    energy: 'Aumento de energia e produtividade'
+                },
+                cta: {
+                    title: 'Pronto Para Transformar Seu Sono?',
+                    description: 'Junte-se a milhares de usuários que já melhoraram a qualidade do seu sono com Uinak. Comece sua jornada para um sono melhor esta noite.',
+                    button: 'Baixar Grátis'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Todos os direitos reservados. Transforme seu sono, transforme sua vida.'
+                }
+            },
+            zh: {
+                name: '中文',
+                flag: '🇨🇳',
+                hero: {
+                    title: '改变您的睡眠<br>神清气爽地醒来',
+                    subtitle: '人工智能驱动的睡眠追踪和个性化见解,帮助您每晚睡得更好',
+                    cta: '在App Store下载'
+                },
+                features: {
+                    title: '更好睡眠所需的一切',
+                    tracking: {
+                        title: '智能睡眠追踪',
+                        description: '自动追踪整夜的睡眠质量、持续时间和阶段。每天早上获得全面的睡眠评分。'
+                    },
+                    ai: {
+                        title: 'AI驱动的见解',
+                        description: '根据您的睡眠模式获得个性化建议。我们的AI分析您的数据,帮助您改善睡眠质量。'
+                    },
+                    winddown: {
+                        title: '放松程序',
+                        description: '通过引导性放松活动、冥想和舒缓练习,为您的身心准备安稳的睡眠。'
+                    },
+                    analytics: {
+                        title: '详细分析',
+                        description: '通过精美的图表和见解追踪您的睡眠趋势。了解您的睡眠阶段、效率和模式。'
+                    },
+                    debt: {
+                        title: '睡眠债监测',
+                        description: '了解您的睡眠不足并获得恢复建议。绝不让睡眠债影响您的日常表现。'
+                    },
+                    sound: {
+                        title: '声音事件检测',
+                        description: '监测可能影响睡眠质量的打鼾、说话和环境噪音。'
+                    }
+                },
+                screenshots: {
+                    title: '体验Uinak'
+                },
+                benefits: {
+                    title: '为什么更好的睡眠很重要',
+                    health: '更好的身体健康和免疫系统',
+                    memory: '改善记忆和认知功能',
+                    mood: '提升情绪和情感健康',
+                    energy: '增加能量和生产力'
+                },
+                cta: {
+                    title: '准备好改变您的睡眠了吗?',
+                    description: '加入数千名已经通过Uinak改善睡眠质量的用户。今晚开始您的更好睡眠之旅。',
+                    button: '免费下载'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. 版权所有。改变您的睡眠,改变您的生活。'
+                }
+            },
+            ja: {
+                name: '日本語',
+                flag: '🇯🇵',
+                hero: {
+                    title: '睡眠を変える<br>すっきり目覚める',
+                    subtitle: 'AI駆動の睡眠追跡とパーソナライズされた洞察で、毎晩より良い睡眠を',
+                    cta: 'App Storeでダウンロード'
+                },
+                features: {
+                    title: 'より良い睡眠に必要なすべて',
+                    tracking: {
+                        title: 'スマート睡眠追跡',
+                        description: '一晩中、睡眠の質、持続時間、段階を自動追跡。毎朝包括的な睡眠スコアを取得します。'
+                    },
+                    ai: {
+                        title: 'AI駆動の洞察',
+                        description: '睡眠パターンに基づいてパーソナライズされた推奨事項を受け取ります。当社のAIがデータを分析し、睡眠の質を改善します。'
+                    },
+                    winddown: {
+                        title: 'リラックスルーティン',
+                        description: 'ガイド付きリラクゼーション活動、瞑想、穏やかなエクササイズで、心と体を安らかな睡眠に準備します。'
+                    },
+                    analytics: {
+                        title: '詳細な分析',
+                        description: '美しいチャートと洞察で、時間の経過とともに睡眠トレンドを追跡します。睡眠段階、効率、パターンを理解します。'
+                    },
+                    debt: {
+                        title: '睡眠負債モニター',
+                        description: '睡眠不足を把握し、回復のための推奨事項を受け取ります。睡眠負債が日常のパフォーマンスに影響を与えることはありません。'
+                    },
+                    sound: {
+                        title: '音声イベント検出',
+                        description: 'いびき、話し声、睡眠の質を妨げる可能性のある環境騒音を監視します。'
+                    }
+                },
+                screenshots: {
+                    title: 'Uinakを体験'
+                },
+                benefits: {
+                    title: 'より良い睡眠が重要な理由',
+                    health: 'より良い身体の健康と免疫システム',
+                    memory: '記憶力と認知機能の向上',
+                    mood: '気分と感情的な幸福の向上',
+                    energy: 'エネルギーと生産性の向上'
+                },
+                cta: {
+                    title: '睡眠を変える準備はできましたか?',
+                    description: 'Uinakで睡眠の質をすでに改善した何千人ものユーザーに参加してください。今夜、より良い睡眠への旅を始めましょう。',
+                    button: '無料ダウンロード'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. 全著作権所有。睡眠を変え、人生を変える。'
+                }
+            },
+            ko: {
+                name: '한국어',
+                flag: '🇰🇷',
+                hero: {
+                    title: '수면을 변화시키세요<br>상쾌하게 깨어나세요',
+                    subtitle: 'AI 기반 수면 추적과 개인화된 통찰력으로 매일 밤 더 나은 수면을',
+                    cta: 'App Store에서 다운로드'
+                },
+                features: {
+                    title: '더 나은 수면을 위한 모든 것',
+                    tracking: {
+                        title: '스마트 수면 추적',
+                        description: '밤새 수면의 질, 지속 시간 및 단계를 자동으로 추적합니다. 매일 아침 종합적인 수면 점수를 받으세요.'
+                    },
+                    ai: {
+                        title: 'AI 기반 통찰력',
+                        description: '수면 패턴을 기반으로 개인화된 권장 사항을 받으세요. 우리의 AI가 데이터를 분석하여 수면의 질을 개선하도록 돕습니다.'
+                    },
+                    winddown: {
+                        title: '이완 루틴',
+                        description: '안내된 이완 활동, 명상 및 진정 운동으로 마음과 몸을 편안한 수면에 준비시키세요.'
+                    },
+                    analytics: {
+                        title: '상세한 분석',
+                        description: '아름다운 차트와 통찰력으로 시간 경과에 따른 수면 추세를 추적하세요. 수면 단계, 효율성 및 패턴을 이해하세요.'
+                    },
+                    debt: {
+                        title: '수면 부채 모니터',
+                        description: '수면 부족을 인식하고 회복을 위한 권장 사항을 받으세요. 수면 부채가 일상 성과에 영향을 미치지 않도록 하세요.'
+                    },
+                    sound: {
+                        title: '소리 이벤트 감지',
+                        description: '수면의 질을 방해할 수 있는 코골이, 말하기 및 환경 소음을 모니터링합니다.'
+                    }
+                },
+                screenshots: {
+                    title: 'Uinak 체험'
+                },
+                benefits: {
+                    title: '더 나은 수면이 중요한 이유',
+                    health: '더 나은 신체 건강 및 면역 체계',
+                    memory: '향상된 기억력 및 인지 기능',
+                    mood: '향상된 기분 및 정서적 웰빙',
+                    energy: '증가된 에너지 및 생산성'
+                },
+                cta: {
+                    title: '수면을 변화시킬 준비가 되셨나요?',
+                    description: 'Uinak으로 이미 수면의 질을 개선한 수천 명의 사용자와 함께하세요. 오늘 밤 더 나은 수면으로의 여정을 시작하세요.',
+                    button: '무료 다운로드'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. 모든 권리 보유. 수면을 변화시키고, 삶을 변화시키세요.'
+                }
+            },
+            tr: {
+                name: 'Türkçe',
+                flag: '🇹🇷',
+                hero: {
+                    title: 'Uykunuzu Dönüştürün<br>Dinlenmiş Uyanın',
+                    subtitle: 'Yapay zeka destekli uyku takibi ve her gece daha iyi uyumanıza yardımcı olacak kişiselleştirilmiş içgörüler',
+                    cta: 'App Store\'dan İndirin'
+                },
+                features: {
+                    title: 'Daha İyi Uyku İçin İhtiyacınız Olan Her Şey',
+                    tracking: {
+                        title: 'Akıllı Uyku Takibi',
+                        description: 'Gece boyunca uyku kalitenizi, sürenizi ve aşamalarınızı otomatik olarak takip edin. Her sabah kapsamlı bir uyku puanı alın.'
+                    },
+                    ai: {
+                        title: 'Yapay Zeka Destekli İçgörüler',
+                        description: 'Uyku düzenlerinize dayalı kişiselleştirilmiş öneriler alın. Yapay zekamız, uyku kalitenizi iyileştirmenize yardımcı olmak için verilerinizi analiz eder.'
+                    },
+                    winddown: {
+                        title: 'Gevşeme Rutinleri',
+                        description: 'Rehberli gevşeme aktiviteleri, meditasyon ve sakinleştirici egzersizlerle zihninizi ve bedeninizi dinlendirici uykuya hazırlayın.'
+                    },
+                    analytics: {
+                        title: 'Detaylı Analizler',
+                        description: 'Güzel grafikler ve içgörülerle uyku eğilimlerinizi zaman içinde takip edin. Uyku aşamalarınızı, verimliliğinizi ve düzenlerinizi anlayın.'
+                    },
+                    debt: {
+                        title: 'Uyku Borcu İzleyici',
+                        description: 'Uyku açığınızın farkında olun ve iyileşme için öneriler alın. Uyku borcunun günlük performansınızı etkilemesine asla izin vermeyin.'
+                    },
+                    sound: {
+                        title: 'Ses Olayı Algılama',
+                        description: 'Uyku kalitenizi bozabilecek horlama, konuşma ve çevresel gürültüyü izleyin.'
+                    }
+                },
+                screenshots: {
+                    title: 'Uinak\'ı Deneyimleyin'
+                },
+                benefits: {
+                    title: 'Daha İyi Uyku Neden Önemli',
+                    health: 'Daha iyi fiziksel sağlık ve bağışıklık sistemi',
+                    memory: 'Gelişmiş hafıza ve bilişsel işlev',
+                    mood: 'Gelişmiş ruh hali ve duygusal refah',
+                    energy: 'Artan enerji ve verimlilik'
+                },
+                cta: {
+                    title: 'Uykunuzu Dönüştürmeye Hazır mısınız?',
+                    description: 'Uinak ile uyku kalitelerini zaten iyileştirmiş binlerce kullanıcıya katılın. Bu gece daha iyi uykuya giden yolculuğunuza başlayın.',
+                    button: 'Ücretsiz İndirin'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. Tüm hakları saklıdır. Uykunuzu dönüştürün, hayatınızı dönüştürün.'
+                }
+            },
+            ar: {
+                name: 'العربية',
+                flag: '🇸🇦',
+                hero: {
+                    title: 'حوّل نومك<br>استيقظ منتعشاً',
+                    subtitle: 'تتبع النوم المدعوم بالذكاء الاصطناعي ورؤى مخصصة لمساعدتك على النوم بشكل أفضل كل ليلة',
+                    cta: 'تحميل من App Store'
+                },
+                features: {
+                    title: 'كل ما تحتاجه لنوم أفضل',
+                    tracking: {
+                        title: 'تتبع ذكي للنوم',
+                        description: 'تتبع تلقائي لجودة نومك ومدته ومراحله طوال الليل. احصل على درجة نوم شاملة كل صباح.'
+                    },
+                    ai: {
+                        title: 'رؤى مدعومة بالذكاء الاصطناعي',
+                        description: 'احصل على توصيات مخصصة بناءً على أنماط نومك. يحلل الذكاء الاصطناعي لدينا بياناتك لمساعدتك على تحسين جودة نومك.'
+                    },
+                    winddown: {
+                        title: 'روتينات الاسترخاء',
+                        description: 'جهّز عقلك وجسمك للنوم المريح من خلال أنشطة الاسترخاء الموجهة والتأمل والتمارين المهدئة.'
+                    },
+                    analytics: {
+                        title: 'تحليلات مفصلة',
+                        description: 'تتبع اتجاهات نومك بمرور الوقت بمخططات جميلة ورؤى ثاقبة. افهم مراحل نومك وكفاءتك وأنماطك.'
+                    },
+                    debt: {
+                        title: 'مراقب دين النوم',
+                        description: 'ابق على دراية بنقص نومك واحصل على توصيات للتعافي. لا تدع دين النوم يؤثر على أدائك اليومي أبداً.'
+                    },
+                    sound: {
+                        title: 'كشف الأحداث الصوتية',
+                        description: 'راقب الشخير والحديث والضوضاء البيئية التي قد تعطل جودة نومك.'
+                    }
+                },
+                screenshots: {
+                    title: 'جرب Uinak'
+                },
+                benefits: {
+                    title: 'لماذا النوم الأفضل مهم',
+                    health: 'صحة جسدية أفضل وجهاز مناعة أقوى',
+                    memory: 'تحسين الذاكرة والوظيفة الإدراكية',
+                    mood: 'تحسين المزاج والرفاهية العاطفية',
+                    energy: 'زيادة الطاقة والإنتاجية'
+                },
+                cta: {
+                    title: 'هل أنت مستعد لتحويل نومك؟',
+                    description: 'انضم إلى آلاف المستخدمين الذين حسّنوا بالفعل جودة نومهم باستخدام Uinak. ابدأ رحلتك نحو نوم أفضل الليلة.',
+                    button: 'تحميل مجاني'
+                },
+                footer: {
+                    copyright: '© 2026 Uinak. جميع الحقوق محفوظة. حوّل نومك، حوّل حياتك.'
+                }
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function toggleLanguageMenu() {
+            const menu = document.getElementById('language-menu');
+            menu.classList.toggle('active');
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            const translation = translations[lang];
+
+            // Update current language button
+            document.getElementById('current-flag').textContent = translation.flag;
+            document.getElementById('current-language').textContent = translation.name;
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                const keys = key.split('.');
+                let value = translation;
+
+                for (const k of keys) {
+                    value = value[k];
+                }
+
+                element.innerHTML = value;
+            });
+
+            // Update selected state in menu
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.closest('.language-option').classList.add('selected');
+
+            // Close menu
+            toggleLanguageMenu();
+
+            // Save preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.language-dropdown');
+            const menu = document.getElementById('language-menu');
+
+            if (!dropdown.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Load saved language preference
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang && translations[savedLang]) {
+                changeLanguage(savedLang);
+            }
+        });
+    </script>
 </body>
 </html>
